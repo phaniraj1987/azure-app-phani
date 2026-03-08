@@ -5,6 +5,13 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>azure_app_phani</RootNamespace>
+    <ApplicationInsightsResourceId>/subscriptions/be7ff96f-8838-4d4c-a0a4-7e190bb7241d/resourcegroups/az-group-rg-phani-learning/providers/microsoft.insights/components/azure-app-phani</ApplicationInsightsResourceId>
+    <UserSecretsId>cdc593e7-e674-4e5c-bef3-88da58256e54</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Identity" Version="1.13.2" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.23.0" />
+  </ItemGroup>
 
 </Project>

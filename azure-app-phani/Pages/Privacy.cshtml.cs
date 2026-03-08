@@ -14,6 +14,7 @@ namespace azure_app_phani.Pages
 
         public void OnGet()
         {
+            //throw new Exception("Testing for application insights");
         }
     }
 
