@@ -1,4 +1,6 @@
 using Azure.Identity;
+using azure_app_phani.Data;
+using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,6 +9,8 @@ builder.Services.AddApplicationInsightsTelemetry(new Microsoft.ApplicationInsigh
 {
     ConnectionString = builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]
 });
+var connectionstring = builder.Configuration.GetConnectionString("AureSQLConnectionString");
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionstring));
 
 var app = builder.Build();
 
