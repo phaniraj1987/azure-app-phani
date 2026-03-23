@@ -1,0 +1,48 @@
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger: 'none'
+ 
+
+pool:
+  vmImage: 'windows-2019'
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- task: DotNetCoreCLI@2
+  displayName:  Restore Nugget Packages
+  inputs:
+    azureSubscription: 'Azure subscription Free(be7ff96f-8838-4d4c-a0a4-7e190bb7241d)'
+    command: 'restore'
+    projects: '**/azure-app-phani.csproj'
+    feedsToUse: 'select'
+
+- task: DotNetCoreCLI@2
+  displayName:  Build App
+  inputs:
+    azureSubscription: 'Azure subscription Free(1)(be7ff96f-8838-4d4c-a0a4-7e190bb7241d)'
+    command: 'build'
+    projects: '**/azure-app-phani.csproj'
+    arguments: '--configuration $(BuildConfiguration)'
+
+# - task: DotNetCoreCLI@2
+#   displayName: Run Unit Tests
+#   inputs:
+#     azureSubscription: 'Azure subscription Free(1)(be7ff96f-8838-4d4c-a0a4-7e190bb7241d)'
+#     command: 'test'
+#     projects: '**/azure-app-phani.csproj'
+#     arguments: '--configuration $(BuildConfiguration)'
+#- script: dotnet build --configuration $(buildConfiguration)
+ # displayName: 'dotnet build $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: Publish Artifact
+  inputs:
+    azureSubscription: 'Azure subscription Free(1)(be7ff96f-8838-4d4c-a0a4-7e190bb7241d)'
+    command: 'publish'
+    publishWebProjects: true
+    packagesToPush: '$(build.artifactstagingdirectory)'
